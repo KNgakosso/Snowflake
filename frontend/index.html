@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simulateur de Flocon</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="sidebar-wrapper">
+      <div id="sidebar">
+        <h1>❄️ Simulateur Flocon de neige</h1>
+        <p class="subtitle">Simulation de croissance d'un cristal de glace.</p>
+
+        <!-- Onglets -->
+        <div class="tabs">
+          <button class="tab active" data-tab="simulation">Simulation</button>
+          <button class="tab" data-tab="params">Paramètres</button>
+          <button class="tab" data-tab="edit">Édition</button>
+        </div>
+
+        <div class="tab-content active" id="simulation">
+          <!-- Contenu Simulation -->
+          <h2>Paramètres Maillage</h2>
+          <div class="cell-edit">
+            <label for="size">Taille du maillage</label>
+            <div class="input-row">
+              <input type="number" id="size" min="1" max="100" value="20" />
+              <button type="button" id="updateInitParams">Appliquer</button>
+            </div>
+          </div>
+          <h2>Affichage</h2>
+          <label for="displayMode">Mode d'affichage</label>
+          <select id="displayMode">
+            <option value="frozen">Gel</option>
+            <option value="temperature">Température</option>
+            <option value="vapor">Vapeur</option>
+            <option value="icePotential">Potentiel de glace</option>
+          </select>
+
+          <h2>Paramètres Simulation</h2>
+          <label for="iterations">Itérations</label>
+          <input type="number" id="iterations" min="1" value="10" />
+
+          <label for="loop">Séries</label>
+          <input type="number" id="loop" min="1" value="10" />
+
+          <button type="button" id="updateSimulParams">
+            Mettre à jour params
+          </button>
+
+          <h2>Simulation</h2>
+          <button type="button" id="runBtn">Lancer</button>
+
+          <div id="loading" style="display: none">
+            ❄️ Simulation en cours...
+            <div class="spinner"></div>
+          </div>
+        </div>
+
+        <!-- Contenu Paramètres -->
+        <div class="tab-content" id="params">
+          <h2>Paramètres physiques</h2>
+
+          <label for="alphaTemp">Coeff diffusion temperature</label>
+          <input
+            type="number"
+            id="alphaTemp"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.5"
+          />
+
+          <label for="alphaVapor">Coeff diffusion vapeur</label>
+          <input
+            type="number"
+            id="alphaVapor"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.5"
+          />
+
+          <label for="betaVapor">Coeff directionnel vapeur</label>
+          <input
+            type="number"
+            id="betaVapor"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.5"
+          />
+
+          <label for="alphaCond">Coeff condensation</label>
+          <input
+            type="number"
+            id="alphaCond"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.5"
+          />
+
+          <label for="vapSat">Saturation vapeur</label>
+          <input
+            type="number"
+            id="vapSat"
+            min="0"
+            max="50"
+            step="0.1"
+            value="10"
+          />
+
+          <label for="iceThresh">Seuil Glace</label>
+          <input
+            type="number"
+            id="iceThresh"
+            min="0"
+            max="50"
+            step="0.1"
+            value="10"
+          />
+
+          <label for="tempThresh">Seuil Température</label>
+          <input
+            type="number"
+            id="tempThresh"
+            min="-20"
+            max="0"
+            step="0.1"
+            value="0"
+          />
+
+          <label for="nFrozenNeigh">Nombre voisins gelés</label>
+          <input type="number" id="nFrozenNeigh" min="0" max="6" value="2" />
+
+          <button type="button" id="updatePhysParams">
+            Mettre à jour les paramètres
+          </button>
+        </div>
+
+        <!-- Contenu Edition -->
+        <div class="tab-content" id="edit">
+          <h2>Modifier les cellules</h2>
+
+          <button type="button" id="randBtn">Aléatoire</button>
+
+          <div class="cell-edit">
+            <label for="tempValue">Température</label>
+            <div class="input-row">
+              <input type="number" id="tempValue" value="0" />
+              <button type="button" id="applyTemp">Appliquer</button>
+            </div>
+          </div>
+          <!-- Vapeur -->
+          <div class="cell-edit">
+            <label for="vaporValue">Vapeur</label>
+            <div class="input-row">
+              <input type="number" id="vaporValue" value="0" />
+              <button type="button" id="applyVapor">Appliquer</button>
+            </div>
+          </div>
+
+          <!-- Ice Potential -->
+          <div class="cell-edit">
+            <label for="iceValue">Potentiel de glace</label>
+            <div class="input-row">
+              <input type="number" id="iceValue" value="0" />
+              <button type="button" id="applyIce">Appliquer</button>
+            </div>
+          </div>
+          <div class="cell-edit">
+            <label>Gel</label>
+            <div class="cell-buttons">
+              <button id="setFrozen">Geler</button>
+              <button id="unsetFrozen">Dégeler</button>
+            </div>
+          </div>
+          <!--<p class="help">
+            Sélection : clic pour une cellule, SHIFT+clic pour
+            multisélection.<br />
+            Si aucune cellule sélectionnée, les modifications s'appliquent à
+            tout le maillage.
+        </p>-->
+        </div>
+      </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    <script type="module" src="/static/main.js"></script>
+  </body>
+</html>

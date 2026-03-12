@@ -22,9 +22,9 @@ def verif_id(id : tuple[int, int]):
                              "The second number i must respect the condiftion r <= i < r*6."
                     )
 
-def create_list_ids(nb_rings : int):
+def create_list_ids(size : int) -> list[tuple[int, int]]:
     list_ids = [(0,0)]
-    for r in range(nb_rings + 1):
+    for r in range(1, size + 1):
         for i in range(6*r):
             list_ids.append((r,i))
     return list_ids

@@ -162,7 +162,7 @@ def test_temparature_diffusion_alpha_temp_0(simple_cell):
 @pytest.mark.parametrize("temperature,temperature_threshold", [(-10, -4.), (-1e-15, 0.), (5, 5.)])
 @pytest.mark.parametrize("ice_potential,ice_threshold", [(7.4, 5), (4 + 1e-15, 4), (1,1)])
 @pytest.mark.parametrize("n_frozen_neighbors,n_frozen_neighbors_threshold", [(1,4), (3,3), (6,2)])
-def test_freeze__low_temp_high_ice(temperature, temperature_threshold, ice_potential, ice_threshold, n_frozen_neighbors,n_frozen_neighbors_threshold, simple_cell):
+def test_freeze_low_temp_high_ice(temperature, temperature_threshold, ice_potential, ice_threshold, n_frozen_neighbors,n_frozen_neighbors_threshold, simple_cell):
     cell: Cell = simple_cell(temperature = temperature, ice_potential = ice_potential, frozen = False)
     cell.freeze(ice_threshold=ice_threshold,
                 temperature_threshold=temperature_threshold,
@@ -172,18 +172,60 @@ def test_freeze__low_temp_high_ice(temperature, temperature_threshold, ice_poten
     assert cell.frozen
     assert cell.ice_potential == 0
 
-@pytest.mark.parametrize("temperature,temperature_threshold", [(-10, 0.), (0, 0.), (5, 0.)])
-@pytest.mark.parametrize("ice_potential,ice_threshold", [(-7.4, 5), (4, 4), (14.1, 1)])
-@pytest.mark.parametrize("n_frozen_neighbors,n_frozen_neighbors_threshold", [(1, 1), (4, 2)])
-def test_freeze_frozen_neighbors(temperature, temperature_threshold, ice_potential, ice_threshold, n_frozen_neighbors,n_frozen_neighbors_threshold, simple_cell):
+@pytest.mark.parametrize("temperature,temperature_threshold", [(-10, 0.), (0, 0.), (5, 15.)])
+@pytest.mark.parametrize("ice_potential,ice_threshold", [(7.4, 5), (4, 4), (14.1, 1)])
+@pytest.mark.parametrize("n_frozen_neighbors,n_frozen_neighbors_threshold", [(1, 1), (6, 3), (4, 2)])
+def test_freeze_cond1_and_cond2_OK_True(temperature, temperature_threshold, ice_potential, ice_threshold, n_frozen_neighbors,n_frozen_neighbors_threshold, simple_cell):
     cell: Cell = simple_cell(temperature = temperature, ice_potential = ice_potential, frozen = False)
-    cell.freeze(ice_threshold=ice_threshold,
+    result = cell.freeze(ice_threshold=ice_threshold,
                 temperature_threshold=temperature_threshold,
                 n_frozen_neighbors_threshold=n_frozen_neighbors_threshold,
                 n_frozen_neighbors=n_frozen_neighbors
             )
     assert cell.frozen
     assert cell.ice_potential == 0
+    assert result
+
+
+@pytest.mark.parametrize("temperature,temperature_threshold", [(-70, 0.), (1, 1.), (-200, 2.)])
+@pytest.mark.parametrize("ice_potential,ice_threshold", [(10, 0), (14, 4), (14.1, 14.1)])
+@pytest.mark.parametrize("n_frozen_neighbors,n_frozen_neighbors_threshold", [(1, 5), (5, 6)])
+def test_cond1_OK_True(temperature, temperature_threshold, ice_potential, ice_threshold, n_frozen_neighbors,n_frozen_neighbors_threshold, simple_cell):
+    cell: Cell = simple_cell(temperature = temperature, ice_potential = ice_potential, frozen = False)
+    result = cell.freeze(ice_threshold=ice_threshold,
+                temperature_threshold=temperature_threshold,
+                n_frozen_neighbors_threshold=n_frozen_neighbors_threshold,
+                n_frozen_neighbors=n_frozen_neighbors
+            )
+    assert cell.frozen
+    assert cell.ice_potential == 0
+    assert result
+
+@pytest.mark.parametrize("n_frozen_neighbors,n_frozen_neighbors_threshold", [(6, 6), (2, 1)])
+def test_freeze_cond2_OK_True(n_frozen_neighbors,n_frozen_neighbors_threshold, simple_cell):
+    cell: Cell = simple_cell(temperature = 0, ice_potential = 0, frozen = False)
+    result = cell.freeze(ice_threshold=40,
+                temperature_threshold=-5,
+                n_frozen_neighbors_threshold=n_frozen_neighbors_threshold,
+                n_frozen_neighbors=n_frozen_neighbors
+            )
+    assert cell.frozen
+    assert cell.ice_potential == 0
+    assert result
+
+@pytest.mark.parametrize("temperature,temperature_threshold", [(0, -70), (2, -22.)])
+@pytest.mark.parametrize("ice_potential,ice_threshold", [(0, 10), (4, 14)])
+@pytest.mark.parametrize("n_frozen_neighbors,n_frozen_neighbors_threshold", [(1, 3), (2, 4)])
+def test_freeze_NOT_OK_False(temperature, temperature_threshold, ice_potential, ice_threshold, n_frozen_neighbors,n_frozen_neighbors_threshold, simple_cell):
+    cell: Cell = simple_cell(temperature = temperature, ice_potential = ice_potential, frozen = False)
+    result = cell.freeze(ice_threshold=ice_threshold,
+                temperature_threshold=temperature_threshold,
+                n_frozen_neighbors_threshold=n_frozen_neighbors_threshold,
+                n_frozen_neighbors=n_frozen_neighbors
+            )
+    assert not cell.frozen
+    assert not result
+
 
 @pytest.mark.parametrize("temperature,ice_potential,temperature_threshold,ice_threshold", [
     (5, 0, 0., 10),     #too hot and not enough ice

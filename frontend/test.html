@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="fr">
+<body>
+<button id="testBtn" type="button">Test</button>
+<script>
+document.getElementById("testBtn").addEventListener("click", e => {
+    e.preventDefault();
+    console.log("Bouton cliqué, pas de reload");
+});
+</script>
+</body>
+</html>

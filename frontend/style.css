@@ -1,0 +1,333 @@
+body {
+    margin: 0;
+    font-family: "Inter", Arial, sans-serif;
+    background: #111;
+    color: white;
+    display: flex;
+}
+
+.sidebar-wrapper {
+  position: relative;
+  width: 280px;         /* largeur totale de la sidebar */
+}
+
+#sidebar {
+  position: relative;
+  width: 100%;           /* prend toute la largeur */
+  height: 100vh;
+  padding: 20px;
+  overflow-y: scroll;    /* scroll du contenu */
+  box-sizing: border-box;
+}
+
+/* Scrollbar fine et “collée à l’extérieur” */
+.sidebar-wrapper::-webkit-scrollbar {
+  width: 8px;            /* largeur de la scrollbar */
+}
+
+.sidebar-wrapper::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #ddd;
+}
+
+input, select {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background: #111;
+    color: white;
+    margin-bottom: 6px;
+}
+
+label {
+    font-size: 13px;
+    color: #aaa;
+}
+
+button {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background: #00aaff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #0088cc;
+}
+
+#runBtn {
+    background: #27c93f;
+    font-weight: bold;
+}
+
+#runBtn:hover {
+    background: #1fa233;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+canvas {
+    flex: 1;
+    display: block;
+    background: radial-gradient(circle at center, #111, #000);
+}
+
+#loading {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.spinner {
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #00aaff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+body {
+    margin: 0;
+    font-family: "Inter", Arial, sans-serif;
+    background: #111;
+    color: white;
+    display: flex;
+    overflow-x: hidden; /* bloque le scroll horizontal global */
+}
+
+.sidebar-wrapper {
+    width: 280px;
+    height: 100vh;
+    flex-shrink: 0;       /* empêche la sidebar de rétrécir */
+    overflow-y: auto;     /* scroll vertical seulement */
+    overflow-x: hidden;   /* bloque le scroll horizontal ici aussi */
+}
+
+#sidebar {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* padding inclus dans la largeur */
+    padding: 20px;
+}
+
+/* Scrollbar personnalisée */
+.sidebar-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.sidebar-wrapper::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+h1 { font-size: 20px; margin-bottom: 10px; }
+h2 { font-size: 16px; margin-bottom: 8px; color: #ddd; }
+.subtitle { font-size: 13px; color: #aaa; margin-bottom: 10px; }
+.help { font-size: 12px; color: #aaa; margin-top: 10px; }
+
+input, select {
+  width: 100%;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #111;
+  color: white;
+  font-size: 13px;
+}
+
+button {
+  padding: 6px 12px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #00aaff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover { background-color: #0088cc; }
+#runBtn { background: #27c93f; font-weight: bold; }
+#runBtn:hover { background: #1fa233; }
+
+/* Tabs */
+.tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+.tab { flex: 1; padding: 6px; background: #222; border: 1px solid #333; border-radius: 4px; cursor: pointer; }
+.tab.active { background: #00aaff; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Canvas */
+canvas { flex: 1; display: block; background: radial-gradient(circle at center, #111, #000); }
+
+/* Loading spinner */
+#loading { margin-top: 20px; font-size: 18px; }
+.spinner {
+  margin-top: 10px;
+  width: 30px; height: 30px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #00aaff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Cell edit */
+.cell-edit { display: flex; flex-direction: column; margin-bottom: 10px; }
+.cell-edit .input-row { display: flex; gap: 6px; }
+.cell-edit .input-row input { flex: 1; }
+.cell-edit .input-row button { flex: 0; }
+.cell-edit .cell-buttons { display: flex; gap: 6px; }
+
+/* Section / details */
+.section { background: #242424; padding: 12px; border-radius: 6px; border: 1px solid #333; }
+details { background: #1b1b1b; border: 1px solid #333; border-radius: 6px; padding: 8px; }
+summary { cursor: pointer; font-weight: 500; margin-bottom: 6px; }
+.section {
+    background: #242424;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+
+details {
+    background: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.tabs {
+display: flex;
+gap: 6px;
+margin-bottom: 10px;
+}
+
+.tab {
+flex: 1;
+padding: 6px;
+background: #222;
+border: 1px solid #333;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.tab.active {
+background: #00aaff;
+}
+
+.tab-content {
+display: none;
+}
+
+.tab-content.active {
+display: block;
+}
+
+.subtitle {
+font-size: 13px;
+color: #aaa;
+margin-bottom: 10px;
+}
+
+.help {
+font-size: 12px;
+color: #aaa;
+margin-top: 10px;
+}
+
+.cell-edit {
+  display: flex;
+  flex-direction: column;
+}
+
+.cell-edit .input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.cell-edit .input-row input {
+  flex: 1; /* prend tout l’espace disponible */
+}
+
+.cell-edit .input-row button {
+  flex: 0; /* taille naturelle du texte */
+}
+
+.tab-content label {
+  display: block;
+  font-size: 13px;       /* taille uniforme pour tous les labels */
+  margin-bottom: 4px;
+  color: #aaa;
+}
+
+.tab-content input,
+.tab-content select {
+  width: 100%;
+  padding: 6px 8px;      /* même padding pour uniformité */
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #111;
+  color: white;
+  font-size: 13px;       /* taille du texte identique au label */
+}
+
+.tab-content button {
+  padding: 6px 12px;     /* ajusté pour correspondre à la taille des inputs */
+  font-size: 13px;       /* même taille de texte que labels et inputs */
+  margin-bottom: 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #00aaff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.tab-content button:hover {
+  background-color: #0088cc;
+}
+
+/* Spécifique au bouton Run Simulation pour rester distinct */
+#runBtn {
+  background: #27c93f;
+  font-weight: bold;
+}
+
+#runBtn:hover {
+  background: #1fa233;
+}
