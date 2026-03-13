@@ -1,4 +1,4 @@
-from src.utils import verif_alpha, verif_non_negativity
+from backend.utils import verif_alpha, verif_non_negativity
 from dataclasses import dataclass
 from statistics import mean
 

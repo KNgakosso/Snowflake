@@ -1,10 +1,10 @@
 from pydantic import BaseModel, Field
-from src.cell import Cell
-from src.mesh import Mesh
-from src.initialization_params import InitParams
-from src.physical_params import PhysicalParams
-from src.simul_params import SimulParams
-from src.snowflake import Snowflake
+from backend.cell import Cell
+from backend.mesh import Mesh
+from backend.initialization_params import InitParams
+from backend.physical_params import PhysicalParams
+from backend.simul_params import SimulParams
+from backend.snowflake import Snowflake
 
 class CellModel(BaseModel):
     id : tuple[int, int]

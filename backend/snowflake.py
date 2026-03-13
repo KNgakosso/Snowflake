@@ -1,8 +1,8 @@
-from src.mesh import Mesh
-from src.initialization_params import InitParams
-from src.physical_params import PhysicalParams
-from src.simul_params import SimulParams
-from src.utils import verif_alpha, verif_non_negativity
+from backend.mesh import Mesh
+from backend.initialization_params import InitParams
+from backend.physical_params import PhysicalParams
+from backend.simul_params import SimulParams
+from backend.utils import verif_alpha, verif_non_negativity
 import random
 
 class Snowflake:

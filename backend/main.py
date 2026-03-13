@@ -3,24 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from src.models import InitParamsModel, PhysicalParamsModel, SimulParamsModel, UpdateSelectionModel, SelectionModel
+from backend.models import InitParamsModel, PhysicalParamsModel, SimulParamsModel, UpdateSelectionModel, SelectionModel
 import uvicorn
-from src.snowflake import Snowflake
-import src.wrapper as wrapper
+from backend.snowflake import Snowflake
+import backend.wrapper as wrapper
 from pathlib import Path
 import os
 
 snowflake_path = Path(__file__).parent.parent / "mesh"
 snowflake = Snowflake()
 app = FastAPI()
-
-
-# DEBUG
-
-from pydantic import BaseModel
-# Modèle simple pour la mise à jour
-class ItemUpdate(BaseModel):
-    name: str
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # backend/
 FRONTEND_DIR = os.path.join(BASE_DIR, "../frontend")   # ../frontend par rapport à backend/
@@ -38,7 +30,7 @@ app.add_middleware(
 # GET ROUTES
 ####################################
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def read_root():
     index_path = os.path.join(FRONTEND_DIR, "index.html")
     if os.path.exists(index_path):

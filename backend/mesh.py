@@ -1,6 +1,6 @@
 from typing import Any
-from src.cell import Cell
-from src.utils import verif_non_negativity, verif_id, create_list_ids, above, above_left, above_right, below, below_left, below_right
+from backend.cell import Cell
+from backend.utils import verif_non_negativity, verif_id, create_list_ids, above, above_left, above_right, below, below_left, below_right
 
 from typing import Iterable
 

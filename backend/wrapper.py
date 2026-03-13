@@ -1,5 +1,5 @@
-from src.snowflake import Snowflake
-from src.models import MeshModel, InitParamsModel, SimulParamsModel, PhysicalParamsModel, UpdateSelectionModel, SelectionModel
+from backend.snowflake import Snowflake
+from backend.models import MeshModel, InitParamsModel, SimulParamsModel, PhysicalParamsModel, UpdateSelectionModel, SelectionModel
 from pathlib import Path
 
 def update_initialization_params(snowflake : Snowflake, init_params_model : InitParamsModel):
