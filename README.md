@@ -207,7 +207,7 @@ Plusieurs extensions sont envisageables :
 
 # Auteur
 
-Projet réalisé par **Ton Nom**.
+Projet réalisé par Kévin N'gakosso
 
 ---
 
